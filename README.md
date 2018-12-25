@@ -66,4 +66,4 @@ module.exports = {
 ### 示例
 
 1. [vue-demo](./demos/vue-demo)
-2. angular-demo
+2. [angular-demo](./demos/ng-demo)
