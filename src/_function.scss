@@ -1,0 +1,69 @@
+
+@function selectorToString($selector) {
+  $selector: inspect($selector);
+  $selector: str-slice($selector, 2, -2);
+  @return $selector;
+}
+
+@function str-split($string, $separator) {
+  // empty array/list
+  $split-arr: ();
+  // first index of separator in string
+  $index: str-index($string, $separator);
+  // loop through string
+  @while $index != null {
+    // get the substring from the first character to the separator
+    $item: str-slice($string, 1, $index - 1);
+    // push item to array
+    $split-arr: append($split-arr, $item);
+    // remove item and separator from string
+    $string: str-slice($string, $index + 1);
+    // find new index of separator
+    $index: str-index($string, $separator);
+  }
+  // add the remaining string to list (the last item)
+  @if $string != "" {
+    $split-arr: append($split-arr, $string);
+  }
+
+  @return $split-arr;
+}
+
+// 把 & 转换为列表形式
+@function getSelectorList() {
+  $selector: selectorToString(&);
+  $selectorArr: str-split($selector, " ");
+  // 用于判断是否需要使用 @at-root 指令
+  $selectorDeep: length($selectorArr) !global;
+  // 排除 , 号
+  $selectorLast: str-slice(nth($selectorArr, $selectorDeep), 0, -2);
+  $selectorArr2: str-split($selectorLast, ".");
+  @return $selectorArr2;
+}
+// 获取 element 元素最近的 块 选择器
+@function getBlockSelector() {
+  $selectorList: getSelectorList();
+  $selectorReal: nth($selectorList, 2);
+  $modifierIndex: str-index($selectorReal, $modifier-separator) !global;
+  $elementIndex: str-index($selectorReal, $element-separator) !global;
+  $value: $selectorReal;
+  // 排除 -- 修饰符
+  @if $modifierIndex {
+    $value: str-slice($selectorReal, 1, $modifierIndex - 1);
+  } @else if $elementIndex {
+    $value: str-slice($selectorReal, 1, $elementIndex - 1);
+  }
+  @return "." + $value;
+}
+
+// 获取最后一个选择器
+@function getLastSelector() {
+  $selectorList: getSelectorList();
+  $selectorLast: nth($selectorList, length($selectorList));
+  @return "." + $selectorLast;
+}
+
+// element 是否需要被嵌套在 block 作用域中
+@function needNest() {
+  @return $modifierIndex or $elementIndex or $selectorDeep > 1;
+}
