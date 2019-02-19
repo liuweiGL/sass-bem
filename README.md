@@ -36,11 +36,9 @@
 
 ## 使用
 
-> 暂未计划发布到 `npm`，请先手动 clone 到本地使用。
-
 ### 手动引入
 
-1. ~~安装：`npm install sass-bem -D`~~
+1. 安装：`npm install sass-bem -D`
 2. 使用
 
 ```css
@@ -63,7 +61,7 @@
 
 > 在任何一个 `sass` 文件中都可使用 `bem.scss` 中的 `mixin`
 
-1. ~~安装：`npm install sass-bem -D`~~
+1. 安装：`npm install sass-bem -D`
 2. 安装: `npm install sass-resources-loader -D`
 3. 配置 `sass-resources-loader`:
 

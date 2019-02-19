@@ -1,6 +1,6 @@
 {
-  "name": "sass-bem",
-  "version": "1.0.0",
+  "name": "@liuweigl/sass-bem",
+  "version": "1.0.1",
   "description": "使用 sass 编写 bem 风格的css",
   "main": "index.scss",
   "scripts": {
@@ -15,6 +15,7 @@
     "scss",
     "bem"
   ],
+  "private": false,
   "author": "liuweigl",
   "license": "ISC",
   "bugs": {
